@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine ❤️</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+  padding: 100px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+  max-width: 440px;
+  z-index: 2;
+}
+
+h1 {
+  color: #e63946;
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #555;
+  font-size: 17px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+p1 {
+  color: #b20000;
+  font-size: 12px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.signature {
+  margin-top: 25px;
+  font-style: italic;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+button {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#yes {
+  background: #e63946;
+  color: white;
+}
+
+#yes:hover {
+  transform: scale(1.15);
+  background: #ff4d6d;
+}
+
+#no {
+  background: #f1f1f1;
+  color: #333;
+  position: relative;
+}
+
+/* HEART CURSOR */
+.cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  background: #e63946;
+  transform: rotate(45deg);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursor::before,
+.cursor::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #e63946;
+  border-radius: 50%;
+}
+
+.cursor::before { top: -9px; }
+.cursor::after { left: -9px; }
+
+
+/* EMOJI EFFECTS */
+.emoji {
+  position: fixed;
+  font-size: 24px;
+  opacity: 1;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.happy {
+  animation: floatUp 3s linear forwards;
+}
+
+.sad {
+  animation: fallDown 3s linear forwards;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(110vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-60vh);
+    opacity: 1;
+  }
+}
+
+@keyframes fallDown {
+  from {
+    transform: translateY(-60vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(110vh);
+    opacity: 1;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+  
+<!-- MUSIC -->
+<audio id="yesMusic" loop>
+  <source src="C:\Users\Saike\Downloads\yes.mp3" preload="auto" type="audio/mpeg">
+</audio>
+
+<audio id="noMusic" loop>
+  <source src="C:\Users\Saike\Downloads\no.mp3" preload="auto" type="audio/mpeg">
+</audio>
+
+
+<div class="cursor"></div>
+
+<div class="card">
+  <h1>Priyanka ❤️</h1>
+  <p>
+    <bold>Will you be my Valentine...?</bold>
+  </p>
+
+  <div class="buttons">
+    <button id="yes">YES</button>
+    <button id="no">NO</button>
+  </div>
+
+  <div class="signature">— Yours ❤️</div>
+ 
+  <p1>
+  Try to catch the NO button 😈💨
+</p1>
+
+</div>
+
+<script>
+/* CURSOR */
+const cursor = document.querySelector('.cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+
+/* BUTTONS */
+const yesBtn = document.getElementById('yes');
+const noBtn = document.getElementById('no');
+const yesMusic = document.getElementById('yesMusic');
+const noMusic = document.getElementById('noMusic');
+
+let emojiInterval;
+noMusic.load();
+yesMusic.load();
+
+/* EMOJI GENERATOR */
+function startEmojis(type) {
+  emojiInterval = setInterval(() => {
+    const emoji = document.createElement('div');
+    emoji.className = `emoji ${type}`;
+    emoji.style.left = Math.random() * 100 + 'vw';
+
+    emoji.innerHTML = type === 'happy'
+      ? ['😍','❤️','🥰','✨','💖'][Math.floor(Math.random()*5)]
+      : ['😢','💔','🥺','😞'][Math.floor(Math.random()*4)];
+
+    document.body.appendChild(emoji);
+    setTimeout(() => emoji.remove(), 4000);
+  }, 300);
+}
+
+function stopEmojis() {
+  clearInterval(emojiInterval);
+}
+
+/* YES HOVER */
+yesBtn.addEventListener('mouseenter', () => {
+  noMusic.pause();
+  yesMusic.currentTime = 0;
+  yesMusic.play().catch(()=>{});
+  startEmojis('happy');
+});
+
+yesBtn.addEventListener('click',()=>{window.location.href='final.html';});
+
+yesBtn.addEventListener('mouseleave', () => {
+  yesMusic.pause();
+  stopEmojis('happy');
+});
+
+/* NO HOVER */
+noBtn.addEventListener('mouseenter', () => {
+  startEmojis('sad');
+});
+
+noBtn.addEventListener('mouseleave', () => {
+  stopEmojis('sad');
+});
+
+/* NO BUTTON ESCAPE */
+noBtn.addEventListener('mouseover', () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  noMusic.play().catch(()=>{});
+  yesMusic.pause();
+});
+
+
+</script>
+
+</body>
+
+</html>

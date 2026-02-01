@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:radial-gradient(circle at top,#ffe4e1,#ffb6c1,#ffccd5);
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+/* CENTER CARD */
+.box{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  padding:70px 60px;
+  border-radius:35px;
+  box-shadow:0 40px 100px rgba(0,0,0,0.25);
+  z-index:2;
+  animation:pop 1s ease-out;
+}
+
+@keyframes pop{
+  from{transform:scale(.6);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+h1{
+  font-size:46px;
+  color:#e63946;
+  margin-bottom:10px;
+}
+
+.ring{
+  font-size:80px;
+  margin:20px 0;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.25);}
+  100%{transform:scale(1);}
+}
+
+p{
+  font-size:18px;
+  color:#555;
+  line-height:1.8;
+  margin-bottom:20px;
+}
+
+.final{
+  font-size:28px;
+  color:#ff4d6d;
+  font-weight:700;
+}
+
+/* CONFETTI / HEARTS */
+.celebrate{
+  position:fixed;
+  top:-10vh;
+  font-size:30px;
+  pointer-events:none;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(120vh) rotate(360deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC (add your happy romantic song here) -->
+<audio id="celebrationMusic" autoplay loop preload="auto">
+  <source src="C:\Users\Saike\Downloads\yes.mp3"  type="audio/mpeg">
+</audio>
+
+<div class="box">
+  <h1>Yhe le chumma</h1>
+
+  <p>
+    <img class="kiss-gif"
+     src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXR5eXBxYXB4MWhyN3FuMWpuc2ozOGhxdDZlbmtjcmN1dnJjYzViOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W1hd3uXRIbddu/giphy.gif"
+     alt="Kiss">
+  </p>
+
+  <div class="final">
+    Forever starts now ❤️
+  </div>
+</div>
+
+<script>
+
+/* CELEBRATION RAIN */
+const emojis = ['❤️','💖','💘','🥰','😍','🎉','✨','💍'];
+
+function celebration(){
+  const e=document.createElement('div');
+  e.className='celebrate';
+  e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left=Math.random()*100+'vw';
+  e.style.animationDuration=2+Math.random()*3+'s';
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),5000);
+}
+
+/* LOTS of celebration */
+setInterval(celebration,120);
+
+window.addEventListener('load', () => {
+  const music = document.getElementById('celebrationMusic');
+  music.play().catch(()=>{}); // avoids mobile autoplay block
+});
+
+</script>
+
+
+</body>
+</html>
